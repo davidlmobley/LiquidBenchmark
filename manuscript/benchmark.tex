@@ -241,7 +241,7 @@ Instantaneous densities were stored every 250~fs, while trajectory snapshots wer
 
 {\bf Automatic termination criteria.}
 Production simulations were continued until automatic analysis showed standard errors in densities were less than 2$\times$10$^{-4}$ g/cm$^{3}$.
-Automatic analysis of the production simulation data was run every 1 ns of simulation time, and utilized the {\tt detectEquilibration} method in the timeseries module of pymbar 2.1~\cite{shirts2008statistically} to automatically discard the initial portion of the production simulation containing strong far-from-equilibrium configurations.
+Automatic analysis of the production simulation data was run every 1 ns of simulation time, and utilized the {\tt detectEquilibration} method \cite{equilibrationdetection} in the timeseries module of pymbar 2.1~\cite{shirts2008statistically} to automatically discard the initial portion of the production simulation containing strong far-from-equilibrium configurations.
 This procedure selects the equilibration endpoint $T_\mathrm{eq}$ by maximizing the number of effectively uncorrelated samples in the remainder of the production simulation, $N_\mathrm{eff} = (T - T_\mathrm{equil}) / g$, with $T$ the total simulation length.
 The statistical inefficiency $g$ was determined by autocorrelation analysis using the fast adaptive statistical inefficiency computation method as implemented in the {\tt timeseries.computeStatisticalInefficiency} method of pymbar 2.1 (where the algorithm is described in~\cite{chodera2007}).
 This approach is essentially the same as the fixed-width procedure described by eq. 7.12 of ref. \cite{brooks2011handbook}, with $n^*$ equal to 4000 and the sequential testing correction ($n^{-1}$ term) ignored due to the large value of $n$.
