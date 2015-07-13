@@ -1,12 +1,13 @@
 % DOCUMENT CLASS
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%\documentclass[journal=jacsat,manuscript=article]{achemso}
+\documentclass[journal=jacsat,manuscript=article]{achemso}
+\SectionNumbersOn  % This is necessary to use section labels and referencing with ACS template.
 
 % Single-spaced, two-column with PRL look and style (easy on the eyes)
 %\documentclass[aps,pre,twocolumn,nofootinbib,superscriptaddress,linenumbers]{revtex4-1}
 
-\documentclass[aip, jcp, reprint]{revtex4-1}  % arxiv version
+%\documentclass[aip, jcp, reprint]{revtex4-1}  % arxiv version
 \pdfoutput=1  % for arxiv
 
 % Double-spaced, one-column style (for submission/review/editing)
@@ -18,26 +19,26 @@
 
 % FONT
 % Change to a sans serif font for submission.  Comment out for arxiv.
-\usepackage{sourcesanspro}
-\renewcommand*\familydefault{\sfdefault} %% Only if the base font of the document is to be sans serif
+%\usepackage{sourcesanspro}  % Comment out this and the next line for submission to ACS journal.
+%\renewcommand*\familydefault{\sfdefault} %% Only if the base font of the document is to be sans serif
 %
-\usepackage[T1]{fontenc}
+%\usepackage[T1]{fontenc}
 %\usepackage[font=sf,justification=justified]{caption}
-\usepackage[font=sf]{floatrow}
+%\usepackage[font=sf]{floatrow}  % Disabled for ACS
 
-% Rework captions to use sans serif font.
-\makeatletter	
-\renewcommand\@make@capt@title[2]{%
- \@ifx@empty\float@link{\@firstofone}{\expandafter\href\expandafter{\float@link}}%
-  {\sf\textbf{#1}}\sf\@caption@fignum@sep#2\quad
-}%
-\makeatother
+% Rework captions to use sans serif font.  % Commented out for ACS
+%\makeatletter	
+%\renewcommand\@make@capt@title[2]{%
+% \@ifx@empty\float@link{\@firstofone}{\expandafter\href\expandafter{\float@link}}%
+%  {\sf\textbf{#1}}\sf\@caption@fignum@sep#2\quad
+%}%
+%\makeatother
 
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{graphicx}
 \usepackage{caption}
-\usepackage{dcolumn}
+%\usepackage{dcolumn}
 \usepackage{boxedminipage}
 \usepackage{verbatim}
 \usepackage{booktabs}
@@ -85,7 +86,6 @@
 % DOCUMENT
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{document}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % TITLE AND AUTHORS
@@ -95,7 +95,7 @@
 Neat Liquid Densities and Static Dielectric Constants from the ThermoML Data Archive}
 
 \author{Kyle A. Beauchamp$^+$}
-\thanks{Corresponding author}
+%\thanks{Corresponding author}  % Disabled for ACS
 \email{kyle.beauchamp@choderalab.org}
 \affiliation{Computational Biology Program, Sloan Kettering Institute, Memorial Sloan Kettering Cancer Center, New York, NY}
 
@@ -117,11 +117,13 @@ Neat Liquid Densities and Static Dielectric Constants from the ThermoML Data Arc
  \affiliation{Thermodynamics Research Center, NIST, Boulder, CO}
  
  \author{John D. Chodera}
- \thanks{Corresponding author}
+%\thanks{Corresponding author}  % Disabled for ACS
  \email{john.chodera@choderalab.org}
  \affiliation{Computational Biology Program, Sloan Kettering Institute, Memorial Sloan Kettering Cancer Center, New York, NY}
 
 \date{\today}
+
+\begin{document}  % For ACS, had to move begin document to after the author info
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % ABSTRACT
@@ -425,11 +427,11 @@ We conclude that it remains highly advisable that the field continue to use spec
 \begin{figure}
 
 \subfigure[]{
-\includegraphics[width=\columnwidth]{./figures/densities_thermoml.pdf}
+\includegraphics[width=9.5cm]{./figures/densities_thermoml.pdf}
 }
 
 \subfigure[]{
-\includegraphics[width=\columnwidth]{./figures/densities_differences_thermoml.pdf}
+\includegraphics[width=9.5cm]{./figures/densities_differences_thermoml.pdf}
 }
 
 \caption{{\bf Comparison of liquid densities between experiment and simulation.}
@@ -938,7 +940,7 @@ $ conda install "openmoltools" "pymbar==2.1" "mdtraj==1.3" "openmm==6.3" packmol
 %\end{lstlisting}
 
 Note that this command installs the exact versions used in the present study, with the exception of openmoltools for which only a more recent package is available.  
-However, for authors interested in extending the present work, we suggust using the most up-to-date versions available instead, which involves replace the equality symbols == with >=.
+However, for authors interested in extending the present work, we suggust using the most up-to-date versions available instead, which involves replacing the equality symbols $==$ with $>=$.
 
 
 \clearpage
