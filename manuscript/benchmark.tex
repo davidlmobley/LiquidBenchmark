@@ -171,7 +171,7 @@ Secondary sources are often cited as primary sources---a phenomenon that occurre
 citations for data are often incorrect, misattributed to unrelated publications, or omitted altogether;
 numerical data can be mistranscribed, transposed, or incorrectly converted among unit systems~\cite{usgs-ddt-report}.
 In the case of DDT/DDE, these errors occur to such a degree that the authors note ``strings of erroneous data compose as much as 41--73 percent of the total data''~\cite{usgs-ddt-report}.
-Given the importance of these properties for human health and the environment, the quality of physicochemical datasets of lesser importance is highly suspect.
+Given the number and importance of these measurements, the quality of physicochemical datasets of lesser importance may be suspect.
 
 To ameliorate problems of data archival, the NIST Thermodynamics Research Center (TRC) has developed an IUPAC standard XML-based format---ThermoML~\cite{frenkel2003thermoml, frenkel2006xml, chirico2013improvement}---for storing physicochemical measurements, uncertainties, and metadata.
 %{\color{red}[KK: The conjugation on "data archival" feels odd; are you sure that's correct.]}
@@ -396,7 +396,7 @@ We therefore used the present ThermoML extract as a benchmark of the GAFF/AM1-BC
 
 {\bf Overall accuracy.}
 Overall, the densities show reasonable accuracy, with a root-mean square (RMS) relative error over all measurements of (3.0$\pm$0.1)\%, especially encouraging given that this forcefield was not designed with the intention of modeling bulk liquid properties of organic molecules~\cite{gaff,gaff2}.
-This is reasonably consistent with previous studies reporting agreement of 4\% on a different benchmark set~\cite{caleman2011force}.
+This is reasonably consistent with previous studies reporting relative error of 4\% on a different benchmark set~\cite{caleman2011force}.
 
 {\bf Temperature dependence.}
 For a given compound, the signs of the errors typically do not change at different temperatures (Fig.~\ref{figure:Density}, Fig.~\ref{figure:AllDensities}).  
@@ -441,7 +441,7 @@ Color groupings represent identical chemical species, although the color map rep
 Plots of density versus temperature grouped by chemical species are available in Fig.~\ref{figure:AllDensities}.
 Simulation error bars represent one standard error of the mean, with the number of effective (uncorrelated) samples estimated using pymbar.  
 Experimental error bars indicate the standard deviation between independently reported measurements, when available, or author-reported standard deviations in ThermoML entries; for some measurements, neither uncertainty estimate is available.  
-See Fig.~\ref{figure:ErrorAnalysisDensity} for further discussion of error.  (b).  The same plot, but with the residual (predicted minus experiment) on the x axis.  Note that the error bars are all smaller than the symbols.  
+See Figs. \ref{figure:ErrorAnalysisDensity} and \ref{figure:ErrorAnalysisDielectric} for further discussion of error.  (b).  The same plot, but with the residual (predicted minus experiment) on the x axis.  Note that the error bars are all smaller than the symbols.  
 }
 \label{figure:Density}
 \end{figure}
@@ -660,15 +660,17 @@ Other products may be found to serve as well.
 
 \clearpage
 
-\section{TOC Figure}
-
-\includegraphics[width=\columnwidth]{./figures/scheme/toc_figure.png}
 
 \include{si_include}
 
 
 \bibliography{benchmark}
 
+\clearpage
+
+\section{TOC Figure}
+
+\includegraphics[width=\columnwidth]{./figures/scheme/toc_figure.png}
 
 
 \end{document}
