@@ -44,6 +44,7 @@
 \usepackage{booktabs}
 \usepackage{subfigure}
 \usepackage{listings}
+\usepackage{color}
 
 %\usepackage[colorlinks=true,citecolor=blue,linkcolor=blue]{hyperref}  % Commented out to remove colors per ACS requirements.
 
@@ -171,7 +172,7 @@ Secondary sources are often cited as primary sources---a phenomenon that occurre
 citations for data are often incorrect, misattributed to unrelated publications, or omitted altogether;
 numerical data can be mistranscribed, transposed, or incorrectly converted among unit systems~\cite{usgs-ddt-report}.
 In the case of DDT/DDE, these errors occur to such a degree that the authors note ``strings of erroneous data compose as much as 41--73 percent of the total data''~\cite{usgs-ddt-report}.
-Given the number and importance of these measurements, the quality of physicochemical datasets of lesser importance may be suspect.
+{\color{red} Given the number and importance of these measurements, the quality of physicochemical datasets of lesser importance may be suspect.}
 
 To ameliorate problems of data archival, the NIST Thermodynamics Research Center (TRC) has developed an IUPAC standard XML-based format---ThermoML~\cite{frenkel2003thermoml, frenkel2006xml, chirico2013improvement}---for storing physicochemical measurements, uncertainties, and metadata.
 %{\color{red}[KK: The conjugation on "data archival" feels odd; are you sure that's correct.]}
@@ -396,7 +397,7 @@ We therefore used the present ThermoML extract as a benchmark of the GAFF/AM1-BC
 
 {\bf Overall accuracy.}
 Overall, the densities show reasonable accuracy, with a root-mean square (RMS) relative error over all measurements of (3.0$\pm$0.1)\%, especially encouraging given that this forcefield was not designed with the intention of modeling bulk liquid properties of organic molecules~\cite{gaff,gaff2}.
-This is reasonably consistent with previous studies reporting relative error of 4\% on a different benchmark set~\cite{caleman2011force}.
+{\color{red}This is reasonably consistent with previous studies reporting relative error of 4\% on a different benchmark set~\cite{caleman2011force}.}
 
 {\bf Temperature dependence.}
 For a given compound, the signs of the errors typically do not change at different temperatures (Fig.~\ref{figure:Density}, Fig.~\ref{figure:AllDensities}).  
@@ -606,7 +607,8 @@ We conjecture that this missing physics will be important in the upcoming (2015)
 
 {\bf Utility in parameterization.}
 Given their ease of measurement and direct connection to long-range electrostatic interactions, static dielectric constants have high potential utility as primary data for forcefield parameterization efforts.  
-Although this will require the use of forcefields with explicit treatment of atomic polarizability, the inconsistency of fixed-charge models in low-dielectric media is sufficiently alarming to motivate further study of polarizable forcefields.  In particular, continuum methods~\cite{truchon2010using, truchon2009integrated, truchon2008accurate}, point dipole methods~\cite{Ponder2010, ren2004temperature}, and Drude methods~\cite{lamoureux2003modeling, anisimov2005determination} have been maturing rapidly.  Finding the optimal balance of accuracy and performance remains an open question; however, the use of experimentally-parameterized direct polarization methods~\cite{wang2013systematic} may provide polarizability physics at a cost not much greater than fixed charge forcefields.  This is not to say that we suggest an immediate transition to polarizable force fields---the efficiency benefits and pervasiveness of fixed-charge models are important.  Furthermore, empirical corrections such as over-polarized charges \cite{fennell2012simple} and others \cite{leontyev2014polarizable} may provide the ability to model some low-dielectric behaviors at the cost of some transferability.  
+Although this will require the use of forcefields with explicit treatment of atomic polarizability, the inconsistency of fixed-charge models in low-dielectric media is sufficiently alarming to motivate further study of polarizable forcefields.  In particular, continuum methods~\cite{truchon2010using, truchon2009integrated, truchon2008accurate}, point dipole methods~\cite{Ponder2010, ren2004temperature}, and Drude methods~\cite{lamoureux2003modeling, anisimov2005determination} have been maturing rapidly.  Finding the optimal balance of accuracy and performance remains an open question; however, the use of experimentally-parameterized direct polarization methods~\cite{wang2013systematic} may provide polarizability physics at a cost not much greater than fixed charge forcefields.  
+{\color{red}This is not to say that we suggest an immediate transition to polarizable force fields---the efficiency benefits and pervasiveness of fixed-charge models are important.  Furthermore, empirical corrections such as over-polarized charges \cite{fennell2012simple} and others \cite{leontyev2014polarizable} may provide the ability to model some low-dielectric behaviors at the cost of some transferability.  }
 
 
 \subsection{ThermoML as a data source}
