@@ -2,7 +2,10 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import pandas as pd
 
+sns.set_palette("bright")
+sns.set_style("white")
 sns.set(font_scale=1.2)
+sns.set(style="ticks")
 
 experiments = ["Mass density, kg/m3", "Relative permittivity at zero frequency"]
 

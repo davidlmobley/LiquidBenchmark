@@ -1,7 +1,7 @@
 % DOCUMENT CLASS
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\documentclass[journal=jacsat,manuscript=article]{achemso}
+\documentclass[journal=jpcbfk,manuscript=article, articletitle=true]{achemso}
 \SectionNumbersOn  % This is necessary to use section labels and referencing with ACS template.
 
 % Single-spaced, two-column with PRL look and style (easy on the eyes)
@@ -44,14 +44,12 @@
 \usepackage{booktabs}
 \usepackage{subfigure}
 \usepackage{listings}
+\usepackage{color}
 
-\usepackage[colorlinks=true,citecolor=blue,linkcolor=blue]{hyperref}
+%\usepackage[colorlinks=true,citecolor=blue,linkcolor=blue]{hyperref}  % Commented out to remove colors per ACS requirements.
 
 % The figures are in a figures/ subdirectory.
 %\graphicspath{{../figures/}}
-
-%\bibliographystyle{apsrevlong}
-\bibliographystyle{apsrev}
 
 % italicized boldface for math (e.g. vectors)
 \newcommand{\bfv}[1]{{\mbox{\boldmath{$#1$}}}}
@@ -123,11 +121,15 @@ Neat Liquid Densities and Static Dielectric Constants from the ThermoML Data Arc
 
 \date{\today}
 
+\includeonly{}
+
 \begin{document}  % For ACS, had to move begin document to after the author info
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % ABSTRACT
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\clearpage
 
 %\section{Abstract}
 \begin{abstract}
@@ -139,7 +141,7 @@ Here, we examine the feasibility of benchmarking atomistic forcefields against t
 As a proof of concept, we present a detailed benchmark of the generalized Amber small molecule forcefield (GAFF) using the AM1-BCC charge model against experimental measurements (specifically bulk liquid densities and static dielectric constants at ambient pressure) automatically extracted from the archive, and discuss the extent of data available for use in larger scale (or continuously performed) benchmarks.  
 The results of even this limited initial benchmark highlight a general problem with fixed-charge forcefields in the representation low dielectric environments such as those seen in binding cavities or biological membranes.  
 
-\emph{Keywords: molecular mechanics forcefields; forcefield parameterization; forcefield accuracy; forcefield validation; mass density; static dielectric constant; biomolecular simulation}
+%\emph{Keywords: molecular mechanics forcefields; forcefield parameterization; forcefield accuracy; forcefield validation; mass density; static dielectric constant; biomolecular simulation}
 
 \end{abstract}
 
@@ -170,7 +172,7 @@ Secondary sources are often cited as primary sources---a phenomenon that occurre
 citations for data are often incorrect, misattributed to unrelated publications, or omitted altogether;
 numerical data can be mistranscribed, transposed, or incorrectly converted among unit systems~\cite{usgs-ddt-report}.
 In the case of DDT/DDE, these errors occur to such a degree that the authors note ``strings of erroneous data compose as much as 41--73 percent of the total data''~\cite{usgs-ddt-report}.
-Given the importance of these properties for human health and the environment, the quality of physicochemical datasets of lesser importance is highly suspect.
+{\color{red} Given the number and importance of these measurements, the quality of physicochemical datasets of lesser importance may be suspect.}
 
 To ameliorate problems of data archival, the NIST Thermodynamics Research Center (TRC) has developed an IUPAC standard XML-based format---ThermoML~\cite{frenkel2003thermoml, frenkel2006xml, chirico2013improvement}---for storing physicochemical measurements, uncertainties, and metadata.
 %{\color{red}[KK: The conjugation on "data archival" feels odd; are you sure that's correct.]}
@@ -214,9 +216,9 @@ Below, we describe the operation of the various stages of this pipeline and thei
 \subsubsection{Preparation}
 \label{section:preparation}
 
-Chemical names were parsed from the ThermoML extract and converted to both CAS and SMILES strings using cirpy \cite{swain2012cirpy}.  Smiles strings were converted into molecular structures using the OpenEye Python Toolkit version 2015-2-3 \cite{openeye}, as wrapped in openmoltools.  
+Chemical names were parsed from the ThermoML extract and converted to both CAS and SMILES strings using cirpy (\url{https://github.com/mcs07/CIRpy}).  Smiles strings were converted into molecular structures using the OpenEye Python Toolkit version 2015-2-3 \cite{openeye}, as wrapped in openmoltools.  
 
-Simulation boxes containing 1~000 molecules were constructed using PackMol version 14-225~\cite{martinez2009packmol, packmolurl} wrapped in the Python automation library openmoltools  (\url{http://github.com/choderalab/openmoltools/}).
+Simulation boxes containing 1~000 molecules were constructed using PackMol version 14-225~\cite{martinez2009packmol} wrapped in the Python automation library openmoltools  (\url{http://github.com/choderalab/openmoltools/}).
 In order to ensure stable automated equilibration, PackMol box volumes were chosen to accommodate twice volume of the enclosed atoms, with atomic radii estimated as 1.06 \AA\ and 1.53 \AA\ for hydrogens and nonhydrogens, respectively.  
 
 For this illustrative benchmark, we utilized the generalized Amber small molecule forcefield (GAFF)~\cite{gaff,gaff2} with the AM1-BCC charge model~\cite{am1bcc1,am1bcc2}, which we shall refer to as the GAFF/AM1-BCC forcefield.
@@ -226,8 +228,8 @@ For this illustrative benchmark, we utilized the generalized Amber small molecul
 Canonical AM1-BCC~\cite{am1bcc1,am1bcc2, velez2014time} charges were generated with the OpenEye Python Toolkit version 2015-2-3 \cite{openeye}, using the {\tt oequacpac.OEAssignPartialCharges} module with the {\tt OECharges\_AM1BCCSym} option, which utilizes a conformational expansion procedure (using {\tt oeomega.OEOmega} \cite{hawkins2012conformer}) prior to charge fitting to minimize artifacts from intramolecular contacts.  
 The {\tt OEOmega} selected conformer was then processed using {\tt antechamber} (with {\tt parmchk2}) and {\tt tleap} in AmberTools~14~\cite{amber14} to produce Amber-format {\tt prmtop} and {\tt inpcrd} files, which were then read into OpenMM to perform molecular simulations using the {\tt simtk.openmm.app} module.
 
-The simulations reported here used libraries openmoltools~0.6.4~\cite{openmoltools}, OpenMM~6.3~\cite{eastman2012openmm}, and MDTraj~1.3~\cite{mcgibbon2014mdtraj}.  
-Exact commands to install various dependencies can be found in Appendix~\ref{section:commands}.
+The simulations reported here used libraries openmoltools~0.6.4, OpenMM~6.3~\cite{eastman2012openmm}, and MDTraj~1.3~\cite{mcgibbon2014mdtraj}.  
+Exact commands to install various dependencies can be found in section S1.1.
 
 \subsubsection{Equilibration and production}
 \label{section:production}
@@ -395,7 +397,7 @@ We therefore used the present ThermoML extract as a benchmark of the GAFF/AM1-BC
 
 {\bf Overall accuracy.}
 Overall, the densities show reasonable accuracy, with a root-mean square (RMS) relative error over all measurements of (3.0$\pm$0.1)\%, especially encouraging given that this forcefield was not designed with the intention of modeling bulk liquid properties of organic molecules~\cite{gaff,gaff2}.
-This is reasonably consistent with previous studies reporting agreement of 4\% on a different benchmark set~\cite{caleman2011force}.
+{\color{red}This is reasonably consistent with previous studies reporting relative error of 4\% on a different benchmark set~\cite{caleman2011force}.}
 
 {\bf Temperature dependence.}
 For a given compound, the signs of the errors typically do not change at different temperatures (Fig.~\ref{figure:Density}, Fig.~\ref{figure:AllDensities}).  
@@ -440,7 +442,7 @@ Color groupings represent identical chemical species, although the color map rep
 Plots of density versus temperature grouped by chemical species are available in Fig.~\ref{figure:AllDensities}.
 Simulation error bars represent one standard error of the mean, with the number of effective (uncorrelated) samples estimated using pymbar.  
 Experimental error bars indicate the standard deviation between independently reported measurements, when available, or author-reported standard deviations in ThermoML entries; for some measurements, neither uncertainty estimate is available.  
-See Fig.~\ref{figure:ErrorAnalysisDensity} for further discussion of error.  (b).  The same plot, but with the residual (predicted minus experiment) on the x axis.  Note that the error bars are all smaller than the symbols.  
+See Figs. \ref{figure:ErrorAnalysisDensity} and \ref{figure:ErrorAnalysisDielectric} for further discussion of error.  (b).  The same plot, but with the residual (predicted minus experiment) on the x axis.  Note that the error bars are all smaller than the symbols.  
 }
 \label{figure:Density}
 \end{figure}
@@ -605,7 +607,8 @@ We conjecture that this missing physics will be important in the upcoming (2015)
 
 {\bf Utility in parameterization.}
 Given their ease of measurement and direct connection to long-range electrostatic interactions, static dielectric constants have high potential utility as primary data for forcefield parameterization efforts.  
-Although this will require the use of forcefields with explicit treatment of atomic polarizability, the inconsistency of fixed-charge models in low-dielectric media is sufficiently alarming to motivate further study of polarizable forcefields.  In particular, continuum methods~\cite{truchon2010using, truchon2009integrated, truchon2008accurate}, point dipole methods~\cite{Ponder2010, ren2004temperature}, and Drude methods~\cite{lamoureux2003modeling, anisimov2005determination} have been maturing rapidly.  Finding the optimal balance of accuracy and performance remains an open question; however, the use of experimentally-parameterized direct polarization methods~\cite{wang2013systematic} may provide polarizability physics at a cost not much greater than fixed charge forcefields.
+Although this will require the use of forcefields with explicit treatment of atomic polarizability, the inconsistency of fixed-charge models in low-dielectric media is sufficiently alarming to motivate further study of polarizable forcefields.  In particular, continuum methods~\cite{truchon2010using, truchon2009integrated, truchon2008accurate}, point dipole methods~\cite{Ponder2010, ren2004temperature}, and Drude methods~\cite{lamoureux2003modeling, anisimov2005determination} have been maturing rapidly.  Finding the optimal balance of accuracy and performance remains an open question; however, the use of experimentally-parameterized direct polarization methods~\cite{wang2013systematic} may provide polarizability physics at a cost not much greater than fixed charge forcefields.  
+{\color{red}This is not to say that we suggest an immediate transition to polarizable force fields---the efficiency benefits and pervasiveness of fixed-charge models are important.  Furthermore, empirical corrections such as over-polarized charges \cite{fennell2012simple} and others \cite{leontyev2014polarizable} may provide the ability to model some low-dielectric behaviors at the cost of some transferability.  }
 
 
 \subsection{ThermoML as a data source}
@@ -631,6 +634,10 @@ We find systematic biases in densities and particularly static dielectric consta
 Element-based empirical polarizabilty models are able to account for much of the systematic differences between GAFF/AM1-BCC and experiment.  
 Non-polarizable forcefields may show unacceptable biases when predicting transfer and binding properties of non-polar environments such as binding cavities or membranes.  
 
+\section{Supporting Information}
+
+Five additional figures and one command line instruction are provided in the supporting information. This material is available free of charge via the Internet at \url{http://pubs.acs.org/}.
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % ACKNOWLEDGMENTS
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -655,297 +662,17 @@ Other products may be found to serve as well.
 
 \clearpage
 
+
+\include{si_include}
+
+
+\bibliography{benchmark}
+
+\clearpage
+
 \section{TOC Figure}
 
 \includegraphics[width=\columnwidth]{./figures/scheme/toc_figure.png}
 
-\clearpage
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% SUPPLEMENTARY INFORMATION
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\appendix 
-
-\section{Appendices}
-
-\begin{itemize}
- \item Figure: Timestep-dependence of density
- \item Figure: Error analysis (density) for ThermoML dataset
- \item Figure: Error analysis (static dielectric constant) for ThermoML dataset
- \item Figure: Temperature Dependence: Density
- \item Figure: Temperature Dependence: Static Dielectric Constant
- \item Commands to install dependencies
-\end{itemize}
-
-\clearpage
-
-
-\begin{figure}
-
-\subfigure[]{
-\includegraphics[width=8cm]{./figures/timestep_dependence_density.pdf}
-}
-\subfigure[]{
-\includegraphics[width=8cm]{./figures/timestep_dependence_relative_error.pdf}
-}
-
-\caption{
-{\bf Dependence of computed density on simulation timestep.}
-To probe the systematic error from finite time-step integration, we examined the timestep dependence of butyl acrylate density.  
-(a).  The density is shown for several choices of timestep.  
-(b).  The relative error, as compared to the reference value, is shown for several choices of timestep.  
-Error bars represent standard errors of the mean, with the number of effective samples estimated using pymbar's statistical inefficiency routine \cite{shirts2008statistically}.  
-The reference value is estimated by linear extrapolation to 0 fs using the 0.5 fs and 1.0 fs data points; the linear extrapolation is shown as black lines.  
-We find a 2~fs timestep leads to systematic biases in the density on the order of 0.13\%, while 1 fs reduces the systematic bias to approximately 0.03\%---we therefore selected a 1~fs timestep for the present work, where we aimed to achieve three digits of accuracy in density predictions.
-}
-\label{figure:timestep}
-
-\end{figure}
-
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Assessment of experimental error
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% FIGURE: ILLUSTRATION OF ASSESSMENT OF EXPERIMENTAL ERROR: DENSITY
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\clearpage
-
-\begin{figure}
-
-\subfigure[]{
-\includegraphics[width=7.3cm]{./figures/error_analysis_density.pdf}
-}
-
-\subfigure[]{
-\includegraphics[width=7.3cm]{./figures/error_analysis_density_index.pdf}
-}
-
-\caption{{\bf Assessment of experimental error: Density}
-To assess the experimental error in our ThermoML extract, we compared three different estimates of uncertainty.  
-In the first approach (Weighted), we computed the standard deviation of the optimally weighted average of the measurements, using the uncertainties reported by authors ($\sigma_\textnormal{Weighted} = [\sum_k \sigma_k^{-2}]^{-0.5}$).
-This uncertainty estimator places the highest weights on measurements with small uncertainties and is therefore easily dominated by small outliers and uncertainty under-reporting.
-In the second approach (Median), we estimated the median of the uncertainties reported by authors; this statistic should be robust to small and large outliers of author-reported uncertainties.
-In the third approach (Std), we calculated at the standard deviation of independent measurements reported in the ThermoML extract, completely avoiding the author-reported uncertainties.
-Plot (a) compares the three uncertainty estimates.
-We see that author-reported uncertainties appear to be substantially smaller than the scatter between the observed measurements.
-A simple psychological explanation might be that because density measurements are more routine, the authors simply report the repeatability stated by the manufacturer (e.g.,~0.0001 g/cm$^{3}$ for a Mettler Toledo DM40~\cite{mettlertoledo}).  
-However, this hardware limit is not achieved due to inconsistencies in sample preparation and experimental conditions; see Appendix in Ref.~\cite{chirico2013improvement}.  
-Panel (b) shows the same information as (a) but as a function of the measurement index, rather than as a scatter plot---because not all measurements have author-supplied uncertainties, panel (c) contains slightly more data points than (a, b).  
-%{\color{red}[JDC: Should discuss with Kenneth what kind of story to make out of this, and what to say in the main manuscript body.]}
-%KAB: I think the error analysis is now partially discussed in the density sections.
-}
-\label{figure:ErrorAnalysisDensity}
-
-\end{figure}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% FIGURE: ILLUSTRATION OF ASSESSMENT OF EXPERIMENTAL ERROR: DIELECTRIC
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\clearpage
-
-
-
-\begin{figure}
-
-\subfigure[]{
-\includegraphics[width=7.3cm]{./figures/error_analysis_dielectric.pdf}
-}
-
-\subfigure[]{
-\includegraphics[width=7.3cm]{./figures/error_analysis_dielectric_index.pdf}
-}
-
-\caption{{\bf Assessment of experimental error: Static Dielectric Constant}
-To assess the experimental error in our ThermoML extract, we compared three different estimates of uncertainty.  
-In the first approach (Weighted), we computed the standard deviation of the optimally weighted average of the measurements, using the uncertainties reported by authors ($\sigma_\textnormal{Weighted} = [\sum_k \sigma_k^{-2}]^{-0.5}$).
-This uncertainty estimator places the highest weights on measurements with small uncertainties and is therefore easily dominated by small outliers and uncertainty under-reporting.
-In the second approach (Median), we estimated the median of the uncertainties reported by authors; this statistic should be robust to small and large outliers of author-reported uncertainties.
-In the third approach (Std), we calculated at the standard deviation of independent measurements reported in the ThermoML extract, completely avoiding the author-reported uncertainties.
-Plot (a) compares the three uncertainty estimates.
-Unlike the case of densities, author-reported uncertainties appear to be somewhat larger than the scatter between the observed measurements.
-Panel (b) shows the same information as (a) but as a function of the measurement index, rather than as a scatter plot---because not all measurements have author-supplied uncertainties, panel (c) contains slightly more data points than (a, b).  
-}
-\label{figure:ErrorAnalysisDielectric}
-
-\end{figure}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% FIGURE: DENSITIES VS TEMPERATURE
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{figure*}[alldensity]
-
-\includegraphics[width=\textwidth]{./figures/densities_versus_temperature_part0.pdf}
-
-\caption{{\bf Comparison of simulated and experimental densities for all compounds.} 
-Measured (blue) and simulated (green) densities are shown in units of g/cm$^{3}$.
-\label{figure:AllDensities}
-}
-
-\end{figure*}
-
-\begin{figure*}[alldensity]
-
-
-\ContinuedFloat
-
-\includegraphics[width=\textwidth]{./figures/densities_versus_temperature_part1.pdf}
-
-\caption{{\bf Comparison of simulated and experimental densities for all compounds.} 
-Measured (blue) and simulated (green) densities are shown in units of g/cm$^{3}$.
-\label{figure:AllDensities}
-}
-
-\end{figure*}
-
-\begin{figure*}[alldensity]
-
-\ContinuedFloat
-
-\includegraphics[width=\textwidth]{./figures/densities_versus_temperature_part2.pdf}
-
-\caption{{\bf Comparison of simulated and experimental densities for all compounds.} 
-Measured (blue) and simulated (green) densities are shown in units of g/cm$^{3}$.
-\label{figure:AllDensities}
-}
-
-\end{figure*}
-
-
-\begin{figure*}[alldensity]
-
-\ContinuedFloat
-
-\includegraphics[width=\textwidth]{./figures/densities_versus_temperature_part3.pdf}
-
-\caption{{\bf Comparison of simulated and experimental densities for all compounds.} 
-Measured (blue) and simulated (green) densities are shown in units of g/cm$^{3}$.
-\label{figure:AllDensities}
-}
-
-\end{figure*}
-
-
-\begin{figure*}[alldensity]
-
-\ContinuedFloat
-
-\includegraphics[width=\textwidth]{./figures/densities_versus_temperature_part4.pdf}
-
-\caption{{\bf Comparison of simulated and experimental densities for all compounds.} 
-Measured (blue) and simulated (green) densities are shown in units of g/cm$^{3}$.
-\label{figure:AllDensities}
-}
-
-\end{figure*}
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% FIGURE: DIELECTRIC VS TEMPERATURE
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\begin{figure*}[alldielectric]
-
-\includegraphics[width=\textwidth]{./figures/dielectric_versus_temperature_part0.pdf}
-
-\caption{{\bf Comparison of simulated and experimental static dielectric constants for all compounds.}
-Measured (blue), simulated (green), and polarizability-corrected simulated (red) static dielectric constants are shown for all compounds.
-}
-
-\label{figure:AllDielectrics}
-
-\end{figure*}
-
-
-\begin{figure*}[alldielectric]
-
-\ContinuedFloat
-
-\includegraphics[width=\textwidth]{./figures/dielectric_versus_temperature_part1.pdf}
-
-\caption{{\bf Comparison of simulated and experimental static dielectric constants for all compounds.}
-Measured (blue), simulated (green), and polarizability-corrected simulated (red) static dielectric constants are shown for all compounds.
-}
-
-\label{figure:AllDielectrics}
-
-\end{figure*}
-
-\begin{figure*}[alldielectric]
-
-\ContinuedFloat
-
-\includegraphics[width=\textwidth]{./figures/dielectric_versus_temperature_part2.pdf}
-
-\caption{{\bf Comparison of simulated and experimental static dielectric constants for all compounds.}
-Measured (blue), simulated (green), and polarizability-corrected simulated (red) static dielectric constants are shown for all compounds.
-}
-
-\label{figure:AllDielectrics}
-
-\end{figure*}
-
-\begin{figure*}[alldielectric]
-
-\ContinuedFloat
-
-\includegraphics[width=\textwidth]{./figures/dielectric_versus_temperature_part3.pdf}
-
-\caption{{\bf Comparison of simulated and experimental static dielectric constants for all compounds.}
-Measured (blue), simulated (green), and polarizability-corrected simulated (red) static dielectric constants are shown for all compounds.
-}
-
-\label{figure:AllDielectrics}
-
-\end{figure*}
-
-\begin{figure*}[alldielectric]
-
-\ContinuedFloat
-
-\includegraphics[width=\textwidth]{./figures/dielectric_versus_temperature_part4.pdf}
-
-\caption{{\bf Comparison of simulated and experimental static dielectric constants for all compounds.}
-Measured (blue), simulated (green), and polarizability-corrected simulated (red) static dielectric constants are shown for all compounds.
-}
-
-\label{figure:AllDielectrics}
-
-\end{figure*}
-
-
-
-
-
-
-\clearpage
-
-
-\subsection{Dependency Installation}
-\label{section:commands}
-
-The following shell commands can be used to install the necessary prerequisites via the {\tt conda} package manager for Python:
-
-\begin{lstlisting}[language=bash]
-$ conda config --add channels http://conda.binstar.org/omnia
-$ conda install "openmoltools" "pymbar==2.1" "mdtraj==1.3" "openmm==6.3" packmol
-%\end{lstlisting}
-
-Note that this command installs the exact versions used in the present study, with the exception of openmoltools for which only a more recent package is available.  
-However, for authors interested in extending the present work, we suggust using the most up-to-date versions available instead, which involves replacing the equality symbols $==$ with $>=$.
-
-
-\clearpage
-
-
-\bibliography{benchmark}
 
 \end{document}

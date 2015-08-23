@@ -7,8 +7,9 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 sns.set_palette("bright")
-sns.set_style("whitegrid")
+sns.set_style("white")
 sns.set(font_scale=1.2)
+sns.set(style="ticks")
 
 
 expt = pd.read_csv("./tables/data_with_metadata.csv")
