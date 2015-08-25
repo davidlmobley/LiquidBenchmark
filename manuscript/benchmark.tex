@@ -172,10 +172,10 @@ Secondary sources are often cited as primary sources---a phenomenon that occurre
 citations for data are often incorrect, misattributed to unrelated publications, or omitted altogether;
 numerical data can be mistranscribed, transposed, or incorrectly converted among unit systems~\cite{usgs-ddt-report}.
 In the case of DDT/DDE, these errors occur to such a degree that the authors note ``strings of erroneous data compose as much as 41--73 percent of the total data''~\cite{usgs-ddt-report}.
-{\color{red} Given the number and importance of these measurements, the quality of physicochemical datasets of lesser importance may be suspect.}
+{\color{black} Given the number and importance of these measurements, the quality of physicochemical datasets of lesser importance may be suspect.}
 
 To ameliorate problems of data archival, the NIST Thermodynamics Research Center (TRC) has developed an IUPAC standard XML-based format---ThermoML~\cite{frenkel2003thermoml, frenkel2006xml, chirico2013improvement}---for storing physicochemical measurements, uncertainties, and metadata.
-%{\color{red}[KK: The conjugation on "data archival" feels odd; are you sure that's correct.]}
+%{\color{black}[KK: The conjugation on "data archival" feels odd; are you sure that's correct.]}
 Manuscripts containing new experimental measurements submitted to several journals (J.~Chem.~Eng.~Data, J.~Chem.~Thermodyn., Fluid Phase Equilib., Thermochemica~Acta, and Int.~J.~Thermophys.) are guided through a data archival process that involves sanity checks, conversion to a standard machine-readable format, and archival at the TRC (\url{http://trc.nist.gov/ThermoML.html}).  
 
 Here, we examine the ThermoML archive as a potential source for a reproducible, extensible accuracy benchmark of biomolecular forcefields.
@@ -196,7 +196,7 @@ Using these data, we evaluate the generalized Amber small molecule forcefield (G
 \subsection{ThermoML Archive retrieval and processing}
 \label{section:thermoml-archive-retrieval}
 
-%{\color{red}[JDC: We should introduce this section by stating that, to facilitate automated benchmarking against available data, we first require an automated method for retrieving the data from the ThermoML Archive.  We first did this as described here, to explore the contents of the data, and then developed an automated tool to allow others to retrieve the dataset in an incremental and minimal-impact manner.]}
+%{\color{black}[JDC: We should introduce this section by stating that, to facilitate automated benchmarking against available data, we first require an automated method for retrieving the data from the ThermoML Archive.  We first did this as described here, to explore the contents of the data, and then developed an automated tool to allow others to retrieve the dataset in an incremental and minimal-impact manner.]}
 % KAB: we can document this feature on the Github page.  
 
 A snapshot of the ThermoML Archive was obtained from the the NIST TRC on 8 Apr. 2015.
@@ -222,7 +222,7 @@ Simulation boxes containing 1~000 molecules were constructed using PackMol versi
 In order to ensure stable automated equilibration, PackMol box volumes were chosen to accommodate twice volume of the enclosed atoms, with atomic radii estimated as 1.06 \AA\ and 1.53 \AA\ for hydrogens and nonhydrogens, respectively.  
 
 For this illustrative benchmark, we utilized the generalized Amber small molecule forcefield (GAFF)~\cite{gaff,gaff2} with the AM1-BCC charge model~\cite{am1bcc1,am1bcc2}, which we shall refer to as the GAFF/AM1-BCC forcefield.
-%{\color{red}[JDC: Missing statement about how the GAFF forcefield parameterization was applied (via antechamber?) here.]}
+%{\color{black}[JDC: Missing statement about how the GAFF forcefield parameterization was applied (via antechamber?) here.]}
 % this statement is at the end of the next paragraph. 
 
 Canonical AM1-BCC~\cite{am1bcc1,am1bcc2, velez2014time} charges were generated with the OpenEye Python Toolkit version 2015-2-3 \cite{openeye}, using the {\tt oequacpac.OEAssignPartialCharges} module with the {\tt OECharges\_AM1BCCSym} option, which utilizes a conformational expansion procedure (using {\tt oeomega.OEOmega} \cite{hawkins2012conformer}) prior to charge fitting to minimize artifacts from intramolecular contacts.  
@@ -397,24 +397,24 @@ We therefore used the present ThermoML extract as a benchmark of the GAFF/AM1-BC
 
 {\bf Overall accuracy.}
 Overall, the densities show reasonable accuracy, with a root-mean square (RMS) relative error over all measurements of (3.0$\pm$0.1)\%, especially encouraging given that this forcefield was not designed with the intention of modeling bulk liquid properties of organic molecules~\cite{gaff,gaff2}.
-{\color{red}This is reasonably consistent with previous studies reporting relative error of 4\% on a different benchmark set~\cite{caleman2011force}.}
+{\color{black}This is reasonably consistent with previous studies reporting relative error of 4\% on a different benchmark set~\cite{caleman2011force}.}
 
 {\bf Temperature dependence.}
 For a given compound, the signs of the errors typically do not change at different temperatures (Fig.~\ref{figure:Density}, Fig.~\ref{figure:AllDensities}).  
 Furthermore, the magnitudes of the error also remain largely constant (vertical lines in Fig.~\ref{figure:Density} B), although several exceptions do occur.  
 It is possible that these systematic density offsets indicate correctable biases in forcefield parameters.  
-%{\color{red}[JDC: Should you cite Fig.~\ref{figure:Density}B here?  Constant bias as a function of temperature would look like vertical lines, right?  Are there other things we could say here about the remarkable fact that some of the series in Fig.~\ref{figure:Density}B are vertical (good temperature-dependent behavior even if bias), some are horizontal (simulation has much larger temperature-dependence than experiment); and some are diagonal (wrong temperature dependence)?  I also find it remarkable that essentially none of the molecules have wacky-looking trend lines in this plot, such as a line of two different slopes.]}
+%{\color{black}[JDC: Should you cite Fig.~\ref{figure:Density}B here?  Constant bias as a function of temperature would look like vertical lines, right?  Are there other things we could say here about the remarkable fact that some of the series in Fig.~\ref{figure:Density}B are vertical (good temperature-dependent behavior even if bias), some are horizontal (simulation has much larger temperature-dependence than experiment); and some are diagonal (wrong temperature dependence)?  I also find it remarkable that essentially none of the molecules have wacky-looking trend lines in this plot, such as a line of two different slopes.]}
 
 %Overall, the predictions give an average density of $0.948 \pm 0.009$ g/mL, while the measurements give an average density of $0.928 \pm 0.008$ g/mL.  
-%{\color{red}[JDC: What is the utility of quoting the average density and its standard error?  Not quite following what the point is.]}
-% KAB: OK, I'll delete this
+%{\color{black}[JDC: What is the utility of quoting the average density and its standard error?  Not quite following what the point is.]}
+% KAB: OK, I'll delete this	
 
 {\bf Outliers.}
 The largest density errors occur for a number of oxygen-containing compounds: 1,4-dioxane; 2,5,8-trioxanonane; 2-aminoethanol; dimethyl carbonate; formamide; and water (Fig.~\ref{figure:AllDensities}).
-%{\color{red}[JDC: Could we make a figure of just these compounds, along with their average errors?]}
+%{\color{black}[JDC: Could we make a figure of just these compounds, along with their average errors?]}
 % The reader can use the existing SI figure.  This paper isn't about specific functional groups.  
 The absolute error on these poor predictions is on the order of 0.05  g/cm$^{3}$, which is substantially higher than the measurement error ($\le0.008$ g/cm$^{3}$; see Fig.~\ref{figure:ErrorAnalysisDensity}).  
-%{\color{red}[JDC: We discussed plotting the error as a function of the number of oxygens, since it appears that some of the extreme outliers may have LJ issues with their oxygens.]}
+%{\color{black}[JDC: We discussed plotting the error as a function of the number of oxygens, since it appears that some of the extreme outliers may have LJ issues with their oxygens.]}
 % I am postponinng the functional group analysis until a later paper where we have more than 40 molecules.  
 
 We note that our benchmark includes a GAFF/AM1-BCC model for water due to our desire to automate benchmarks against a forcefield capable of modeling a large variety of small molecular liquids.
@@ -442,7 +442,7 @@ Color groupings represent identical chemical species, although the color map rep
 Plots of density versus temperature grouped by chemical species are available in Fig.~\ref{figure:AllDensities}.
 Simulation error bars represent one standard error of the mean, with the number of effective (uncorrelated) samples estimated using pymbar.  
 Experimental error bars indicate the standard deviation between independently reported measurements, when available, or author-reported standard deviations in ThermoML entries; for some measurements, neither uncertainty estimate is available.  
-See Figs. \ref{figure:ErrorAnalysisDensity} and \ref{figure:ErrorAnalysisDielectric} for further discussion of error.  (b).  The same plot, but with the residual (predicted minus experiment) on the x axis.  Note that the error bars are all smaller than the symbols.  
+See Fig. \ref{figure:ErrorAnalysisDensity} for further discussion of error.  (b).  The same plot, but with the residual (predicted minus experiment) on the x axis.  Note that the error bars are all smaller than the symbols.  
 }
 \label{figure:Density}
 \end{figure}
@@ -463,7 +463,7 @@ U(r) = \frac{q_1 q_2}{\epsilon \, r} \propto \frac{1}{\epsilon} .
 It is evident that $1/\epsilon$ is a much more meaningful quantity to compare than $\epsilon$ directly, as a 5\% error in $1/\epsilon$ will cause a 5\% error in the Coulomb potential between two point charges (assuming a uniform dielectric), while a 5\% error in $\epsilon$ will have a much more complex $\epsilon$-dependent effect on the Coulomb potential.
 We therefore compare simulations against measurements in our ThermoML extract on the $1/\epsilon$ scale in Fig.~\ref{figure:Dielectric}.  
 
-%{\color{red}[JDC: Can you provide any statistics about the overall error here, maybe also broken up into the error in high-dielectric and low-dielectric regimes?]}
+%{\color{black}[JDC: Can you provide any statistics about the overall error here, maybe also broken up into the error in high-dielectric and low-dielectric regimes?]}
 % Done.  Added after the polarizability correction is introduced.  
 
 {\bf GAFF/AM1-BCC systematically underestimates the dielectric constants of nonpolar liquids.}
@@ -498,7 +498,7 @@ Taking the dataset as a whole, we find that the relative error in uncorrected di
 \caption{{\bf Measured (ThermoML) versus predicted (GAFF / AM1-BCC) inverse static dielectrics (a).}
 Simulation error bars represent one standard error of the mean.  
 Experimental error bars indicate the larger of standard deviation between independently reported measurements and the authors reported standard deviations; for some measurements, neither uncertainty estimate is available.  
-See Fig.~\ref{figure:ErrorAnalysisDensity} for further discussion of error.  
+See Fig. \ref{figure:ErrorAnalysisDielectric} for further discussion of error.
 See Section~\ref{section:results:static-dielectric-constant} for explanation of why inverse dielectric constant (rather than dielectric constant) is plotted. 
 For nonpolar liquids, it is clear that the forcefield predicts electrostatic interactions that are substantially biased by missing polarizability.
 Plots of dielectric constant versus temperature grouped by chemical species are available in Fig.~\ref{figure:AllDielectrics}.
@@ -608,7 +608,7 @@ We conjecture that this missing physics will be important in the upcoming (2015)
 {\bf Utility in parameterization.}
 Given their ease of measurement and direct connection to long-range electrostatic interactions, static dielectric constants have high potential utility as primary data for forcefield parameterization efforts.  
 Although this will require the use of forcefields with explicit treatment of atomic polarizability, the inconsistency of fixed-charge models in low-dielectric media is sufficiently alarming to motivate further study of polarizable forcefields.  In particular, continuum methods~\cite{truchon2010using, truchon2009integrated, truchon2008accurate}, point dipole methods~\cite{Ponder2010, ren2004temperature}, and Drude methods~\cite{lamoureux2003modeling, anisimov2005determination} have been maturing rapidly.  Finding the optimal balance of accuracy and performance remains an open question; however, the use of experimentally-parameterized direct polarization methods~\cite{wang2013systematic} may provide polarizability physics at a cost not much greater than fixed charge forcefields.  
-{\color{red}This is not to say that we suggest an immediate transition to polarizable force fields---the efficiency benefits and pervasiveness of fixed-charge models are important.  Furthermore, empirical corrections such as over-polarized charges \cite{fennell2012simple} and others \cite{leontyev2014polarizable} may provide the ability to model some low-dielectric behaviors at the cost of some transferability.  }
+{\color{black}This is not to say that we suggest an immediate transition to polarizable force fields---the efficiency benefits and pervasiveness of fixed-charge models are important.  Furthermore, empirical corrections such as over-polarized charges \cite{fennell2012simple} and others \cite{leontyev2014polarizable} may provide the ability to model some low-dielectric behaviors at the cost of some transferability.  }
 
 
 \subsection{ThermoML as a data source}
