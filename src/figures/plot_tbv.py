@@ -130,8 +130,8 @@ r2 = ols_results.rsquared
 #plt.errorbar(x, y, xerr=xerr, yerr=yerr, fmt='.', label="Corrected")
 plt.errorbar(x ** -1, y ** -1, xerr=xerr * x ** -2, yerr=yerr * y ** -2, fmt='.', label="Corrected")  # Transform xerr and yerr for 1 / epsilon plot
 
-xlim((0.0, 1))
-ylim((0.0, 1))
+xlim((0.0, 1.02))
+ylim((0.0, 1.02))
 plt.legend(loc=0)
 plt.gca().set_aspect('equal', adjustable='box')
 plt.draw()
