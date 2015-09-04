@@ -1,14 +1,16 @@
 % This file was created with JabRef 2.7.
 % Encoding: UTF-8
 
-@article{equilibrationdetection,
+@misc{equilibrationdetection,
 author = {Chodera, John D},
 title = {A Simple Method for Automated Equilibration Detection in Molecular Simulations},
 year = {2015},
 doi = {10.1101/021659},
 publisher = {Cold Spring Harbor Labs Journals},
 abstract = {Molecular simulations intended to compute equilibrium properties are often initiated from configurations that are highly atypical of equilibrium samples, a practice which can generate a distinct initial transient in mechanical observables computed from the simulation trajectory. Traditional practice in simulation data analysis recommends this initial portion be discarded to equilibration, but no simple, general, and automated procedure for this process exists. Here, we suggest a conceptually simple automated procedure that does not make strict assumptions about the distribution of the observable of interest, in which the equilibration time is chosen to maximize the number of effectively uncorrelated samples in the production timespan used to compute equilibrium averages. We present a simple Python reference implementation of this procedure, and demonstrate its utility on typical molecular simulation data.},
-journal = {bioRxiv}
+journal = {bioRxiv},
+url={http://biorxiv.org/content/early/2015/07/04/021659},
+note={accessed Aug. 15, 2015},
 }
 
 @article{fischer2015properties,
@@ -17,6 +19,8 @@ journal = {bioRxiv}
   journal={J. Chem. Theory Comp.},
   year={2015},  
   pages={2938-2944},
+  volume={11},
+  number={7},
   publisher={ACS Publications}  
 }
 
@@ -26,10 +30,11 @@ journal = {bioRxiv}
   author={Zhang, Jin and Tuguldur, Badamkhatan and van der Spoel, David},
   journal={J. Chem. Inf. Mod.},
   year={2015},
+  volume={55},
+  number={6},  
   pages={1192-1201},
   publisher={ACS Publications}
 }
-
 
 
 @misc{swain2012cirpy,
@@ -301,7 +306,7 @@ journal = {bioRxiv}
 
 
 @article{jorgensen1984optimized,
-  title={Optimized intermolecular potential functions for liquid hydrocarbons},
+  title={Optimized Intermolecular Potential Functions for Liquid Hydrocarbons},
   author={Jorgensen, William L and Madura, Jeffry D and Swenson, Carol J},
   journal={J. Am. Chem. Soc.},
   volume={106},
@@ -442,18 +447,24 @@ journal = {bioRxiv}
   author={Wang, Lee-Ping and Mart{\'\i}nez, Todd J and Pande, Vijay S},
   journal={J. Phys. Chem. Let.},
   year={2014},
+  volume={5},
+  number={11},
   pages={1885-1891},
   publisher={American Chemical Society}
 }
+
 
 @article{fennell2014fixed,
   title={A Fixed-Charge Model for Alcohol Polarization in the Condensed Phase, and Its Role in Small Molecule Hydration},
   author={Fennell, Christopher J and Wymer, Karisa L and Mobley, David L},
   journal={J. Phys. Chem. B},
   year={2014},
+  volume={118},
+  number={24},  
   pages={6438-6446},
   publisher={American Chemical Society}
 }
+
 
 @misc{openeye,
   title={OpenEye Toolkits, Version 2014},
@@ -461,13 +472,15 @@ journal = {bioRxiv}
   year={2014},
 }
 
-@article{mcgibbon2014mdtraj,
+@misc{mcgibbon2014mdtraj,
   title={MDTraj: a Modern, Open Library for the Analysis of Molecular Dynamics Trajectories},
   author={McGibbon, Robert T and Beauchamp, Kyle A and Schwantes, Christian R and Wang, Lee-Ping and Hern{\'a}ndez, Carlos X and Harrigan, Matthew P and Lane, Thomas J and Swails, Jason M and Pande, Vijay S},
   journal={bioRxiv},
   pages={008896},
   year={2014},
-  publisher={Cold Spring Harbor Labs Journals}
+  publisher={Cold Spring Harbor Labs Journals},
+  url={http://biorxiv.org/content/early/2014/09/09/008896.short},
+  note={accessed Aug. 27, 2015},
 }
 
 
@@ -1370,6 +1383,8 @@ journal = {J. Chem. Theory Comput.},
   title={Optimization of the Additive CHARMM All-Atom Protein Force Field Targeting Improved Sampling of the Backbone $\varphi$, $\psi$ and Side-Chain $\chi$1 and $\chi$2 Dihedral Angles},
   author={Best, Robert B and Zhu, Xiao and Shim, Jihyun and Lopes, Pedro EM and Mittal, Jeetain and Feig, Michael and MacKerell, Alexander D},
 journal = {J. Chem. Theory Comput.},
+  volume={8},
+  number={9},
   year={2012},
   pages={3257-3273},
   publisher={ACS Publications}
@@ -2061,10 +2076,12 @@ journal = {J. Mol. Biol.},
   publisher={ACS Publications}
 }
 
-@article{amber14,
+
+@book{amber14,
 author={Case, DA and Babin, V and Berryman, Josh and Betz, RM and Cai, Q and Cerutti, DS and Cheatham III, TE and Darden, TA and Duke, RE and Gohlke, H and Kollman, P.A.},
 title={AMBER 14},
-journal={University of California, San Francisco},
+publisher={University of California},
+address={San Francisco, CA},
 year={2014}
 }
 
@@ -2831,7 +2848,7 @@ year = {1997},
   journal={J. Chem. Phys.},
   volume={126},
   number={15},
-  pages={155101--155101},
+  pages={155101},
   year={2007},
   publisher={American Institute of Physics}
 }
@@ -2869,7 +2886,7 @@ year = {1997},
   journal = {J. Chem. Phys.},
   year = {1993},
   volume = {98},
-  pages = {10089}
+  pages = {10089-10092}
 }
 
 @ARTICLE{Dasgupta2005,
@@ -3778,10 +3795,12 @@ The PyMOL Molecular Graphics System, Version 1.3, Schrodinger, LLC.},
   journal = {Nucleic Acids Res.},
   year = {2008},
   volume = {36},
-  pages = {D402},
+  pages = {D402-D408},
   number = {suppl 1},
   publisher = {Oxford Univ Press}
 }
+
+
 
 @ARTICLE{Vijay-kumar1987,
   author = {Vijay-kumar, S. and Bugg, C.E. and Cook, W.J.},
