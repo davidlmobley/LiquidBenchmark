@@ -198,7 +198,7 @@ Plot (a) compares the three uncertainty estimates.
 We see that author-reported uncertainties appear to be substantially smaller than the scatter between the observed measurements.
 A simple psychological explanation might be that because density measurements are more routine, the authors simply report the repeatability stated by the manufacturer (e.g.,~0.0001 g/cm$^{3}$ for a Mettler Toledo DM40~\cite{mettlertoledo}).  
 However, this hardware limit is not achieved due to inconsistencies in sample preparation and experimental conditions; see Appendix in Ref.~\cite{chirico2013improvement}.  
-Panel (b) shows the same information as (a) but as a function of the measurement index, rather than as a scatter plot---because not all measurements have author-supplied uncertainties, panel (c) contains slightly more data points than (a, b).  
+Panel (b) shows the same information as (a) but as a function of the measurement index, rather than as a scatter plot---because not all measurements have author-supplied uncertainties, panel (b) contains slightly more data points than (a).  
 %{\color{red}[JDC: Should discuss with Kenneth what kind of story to make out of this, and what to say in the main manuscript body.]}
 %KAB: I think the error analysis is now partially discussed in the density sections.
 }
@@ -233,7 +233,7 @@ In the second approach (Median), we estimated the median of the uncertainties re
 In the third approach (Std), we calculated at the standard deviation of independent measurements reported in the ThermoML extract, completely avoiding the author-reported uncertainties.
 Plot (a) compares the three uncertainty estimates.
 Unlike the case of densities, author-reported uncertainties appear to be somewhat larger than the scatter between the observed measurements.
-Panel (b) shows the same information as (a) but as a function of the measurement index, rather than as a scatter plot---because not all measurements have author-supplied uncertainties, panel (c) contains slightly more data points than (a, b).  
+Panel (b) shows the same information as (a) but as a function of the measurement index, rather than as a scatter plot---because not all measurements have author-supplied uncertainties, panel (b) contains slightly more data points than (a).  
 }
 \label{figure:ErrorAnalysisDielectric}
 
@@ -319,8 +319,8 @@ Measured (blue) and simulated (green) densities are shown in units of g/cm$^{3}$
 
 \includegraphics[width=\textwidth]{./figures/dielectric_versus_temperature_part0.pdf}
 
-\caption{{\bf Comparison of simulated and experimental static dielectric constants for all compounds.}
-Measured (blue), simulated (green), and polarizability-corrected simulated (red) static dielectric constants are shown for all compounds.
+\caption{{\bf Comparison of simulated and experimental inverse static dielectric constants for all compounds.}
+Measured (blue), simulated (green), and polarizability-corrected simulated (red) inverse static dielectric constants are shown for all compounds.
 }
 
 \label{figure:AllDielectrics}
@@ -334,8 +334,8 @@ Measured (blue), simulated (green), and polarizability-corrected simulated (red)
 
 \includegraphics[width=\textwidth]{./figures/dielectric_versus_temperature_part1.pdf}
 
-\caption{{\bf Comparison of simulated and experimental static dielectric constants for all compounds.}
-Measured (blue), simulated (green), and polarizability-corrected simulated (red) static dielectric constants are shown for all compounds.
+\caption{{\bf Comparison of simulated and experimental inverse static dielectric constants for all compounds.}
+Measured (blue), simulated (green), and polarizability-corrected simulated (red) inverse static dielectric constants are shown for all compounds.
 }
 
 \label{figure:AllDielectrics}
@@ -348,8 +348,8 @@ Measured (blue), simulated (green), and polarizability-corrected simulated (red)
 
 \includegraphics[width=\textwidth]{./figures/dielectric_versus_temperature_part2.pdf}
 
-\caption{{\bf Comparison of simulated and experimental static dielectric constants for all compounds.}
-Measured (blue), simulated (green), and polarizability-corrected simulated (red) static dielectric constants are shown for all compounds.
+\caption{{\bf Comparison of simulated and experimental inverse static dielectric constants for all compounds.}
+Measured (blue), simulated (green), and polarizability-corrected simulated (red) inverse static dielectric constants are shown for all compounds.
 }
 
 \label{figure:AllDielectrics}
@@ -362,8 +362,8 @@ Measured (blue), simulated (green), and polarizability-corrected simulated (red)
 
 \includegraphics[width=\textwidth]{./figures/dielectric_versus_temperature_part3.pdf}
 
-\caption{{\bf Comparison of simulated and experimental static dielectric constants for all compounds.}
-Measured (blue), simulated (green), and polarizability-corrected simulated (red) static dielectric constants are shown for all compounds.
+\caption{{\bf Comparison of simulated and experimental inverse static dielectric constants for all compounds.}
+Measured (blue), simulated (green), and polarizability-corrected simulated (red) inverse static dielectric constants are shown for all compounds.
 }
 
 \label{figure:AllDielectrics}
@@ -376,8 +376,8 @@ Measured (blue), simulated (green), and polarizability-corrected simulated (red)
 
 \includegraphics[width=\textwidth]{./figures/dielectric_versus_temperature_part4.pdf}
 
-\caption{{\bf Comparison of simulated and experimental static dielectric constants for all compounds.}
-Measured (blue), simulated (green), and polarizability-corrected simulated (red) static dielectric constants are shown for all compounds.
+\caption{{\bf Comparison of simulated and experimental inverse static dielectric constants for all compounds.}
+Measured (blue), simulated (green), and polarizability-corrected simulated (red) inverse static dielectric constants are shown for all compounds.
 }
 
 \label{figure:AllDielectrics}
@@ -397,10 +397,12 @@ Measured (blue), simulated (green), and polarizability-corrected simulated (red)
 
 The following shell commands can be used to install the necessary prerequisites via the {\tt conda} package manager for Python:
 
+\begin{footnotesize}
 \begin{lstlisting}[language=bash]
 $ conda config --add channels http://conda.binstar.org/omnia
 $ conda install "openmoltools" "pymbar==2.1" "mdtraj==1.3" "openmm==6.3" packmol
 %\end{lstlisting}
+\end{footnotesize}
 
 Note that this command installs the exact versions used in the present study, with the exception of openmoltools for which only a more recent package is available.  
 However, for authors interested in extending the present work, we suggust using the most up-to-date versions available instead, which involves replacing the equality symbols $==$ with $>=$.
