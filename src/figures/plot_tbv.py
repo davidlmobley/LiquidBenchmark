@@ -1,16 +1,14 @@
+import numpy as np
 import sklearn.metrics, sklearn.cross_validation
 import statsmodels.formula.api as sm
 import simtk.unit as u
 import polarizability
-import seaborn as sns
 import matplotlib.pyplot as plt
 import pandas as pd
 
-sns.set_palette("bright")
-sns.set_style("white")
-sns.set(font_scale=1.2)
-sns.set(style="ticks")
 
+FIGURE_SIZE = (6.5, 6.5)
+DPI = 2400
 
 expt = pd.read_csv("./tables/data_with_metadata.csv")
 expt["temperature"] = expt["Temperature, K"]
@@ -31,6 +29,7 @@ pred["expt_density_std"] = expt["Mass density, kg/m3_uncertainty_bestguess"]
 #pred["expt_dielectric_std"] = expt["Relative permittivity at zero frequency_std"]
 pred["expt_dielectric_std"] = expt["Relative permittivity at zero frequency_uncertainty_bestguess"]
 
+plt.figure(figsize=FIGURE_SIZE, dpi=DPI)
 
 for (formula, grp) in pred.groupby("formula"):
     x, y = grp["density"], grp["expt_density"]
@@ -42,7 +41,7 @@ for (formula, grp) in pred.groupby("formula"):
     yerr = yerr / 1000.  # Convert kg / m3 to g / mL
     plt.errorbar(x, y, xerr=xerr, yerr=yerr, fmt='.', label=formula)
 
-plt.plot([.600, 1.400], [.600, 1.400], 'k')
+plt.plot([.600, 1.400], [.600, 1.400], 'k', linewidth=1)
 plt.xlim((.600, 1.400))
 plt.ylim((.600, 1.400))
 plt.xlabel("Predicted (GAFF)")
@@ -55,11 +54,12 @@ relative_rms = (((x - y) / x)**2).mean()** 0.5
 cv = sklearn.cross_validation.Bootstrap(len(x), train_size=len(x) - 1, n_iter=100)
 relative_rms_grid = np.array([(((x[ind] - y[ind]) / x[ind])**2).mean()** 0.5 for ind, _ in cv])
 relative_rms_err = relative_rms_grid.std()
-plt.title("Density [g / cm^3] (relative rms: %.3f $\pm$ %.3f)" % (relative_rms, relative_rms_err))
+plt.title("Density [g / cm^3]")
 plt.savefig("./manuscript/figures/densities_thermoml.pdf", bbox_inches="tight")
+plt.savefig("./manuscript/figures/densities_thermoml.png", bbox_inches="tight")
 
 
-plt.figure()
+plt.figure(figsize=FIGURE_SIZE, dpi=DPI)
 for (formula, grp) in pred.groupby("formula"):
     x, y = grp["density"], grp["expt_density"]
     xerr = grp["density_sigma"]
@@ -82,19 +82,21 @@ relative_rms = (((x - y) / x)**2).mean()** 0.5
 cv = sklearn.cross_validation.Bootstrap(len(x), train_size=len(x) - 1, n_iter=100)
 relative_rms_grid = np.array([(((x[ind] - y[ind]) / x[ind])**2).mean()** 0.5 for ind, _ in cv])
 relative_rms_err = relative_rms_grid.std()
-plt.title("Density [g / cm^3] (relative rms: %.3f $\pm$ %.3f)" % (relative_rms, relative_rms_err))
+plt.title("Density [g / cm^3]")
+
 plt.savefig("./manuscript/figures/densities_differences_thermoml.pdf", bbox_inches="tight")
+plt.savefig("./manuscript/figures/densities_differences_thermoml.png", bbox_inches="tight")
 
 
 
 yerr = pred["expt_dielectric_std"].replace(np.nan, 0.0)
 xerr = pred["dielectric_sigma"].replace(np.nan, 0.0)
 
-plt.figure()
+plt.figure(figsize=FIGURE_SIZE, dpi=DPI)
 
 plt.xlabel("Predicted (GAFF)")
 plt.ylabel("Experiment (ThermoML)")
-title("Inverse Static Dielectric Constant")
+plt.title("Inverse Static Dielectric Constant")
 
 #ticks = np.concatenate([np.arange(1, 10), 10 * np.arange(1, 10)])
 
@@ -114,8 +116,8 @@ r2 = ols_results.rsquared
 #plt.errorbar(x, y, xerr=xerr, yerr=yerr, fmt='.', label="GAFF")
 plt.errorbar(x ** -1, y ** -1, xerr=xerr * x ** -2, yerr=yerr * y ** -2, fmt='.', label="GAFF")  # Transform xerr and yerr for 1 / epsilon plot
 
-xlim((0.0, 1))
-ylim((0.0, 1))
+plt.xlim((0.0, 1))
+plt.ylim((0.0, 1))
 plt.legend(loc=0)
 plt.gca().set_aspect('equal', adjustable='box')
 plt.draw()
@@ -130,9 +132,10 @@ r2 = ols_results.rsquared
 #plt.errorbar(x, y, xerr=xerr, yerr=yerr, fmt='.', label="Corrected")
 plt.errorbar(x ** -1, y ** -1, xerr=xerr * x ** -2, yerr=yerr * y ** -2, fmt='.', label="Corrected")  # Transform xerr and yerr for 1 / epsilon plot
 
-xlim((0.0, 1.02))
-ylim((0.0, 1.02))
+plt.xlim((0.0, 1.02))
+plt.ylim((0.0, 1.02))
 plt.legend(loc=0)
 plt.gca().set_aspect('equal', adjustable='box')
 plt.draw()
 plt.savefig("./manuscript/figures/dielectrics_thermoml.pdf", bbox_inches="tight")
+plt.savefig("./manuscript/figures/dielectrics_thermoml.png", bbox_inches="tight")
