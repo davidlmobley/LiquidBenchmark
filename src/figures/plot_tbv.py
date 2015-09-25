@@ -8,7 +8,7 @@ import pandas as pd
 
 
 FIGURE_SIZE = (6.5, 6.5)
-DPI = 2400
+DPI = 1600
 
 expt = pd.read_csv("./tables/data_with_metadata.csv")
 expt["temperature"] = expt["Temperature, K"]
@@ -54,9 +54,9 @@ relative_rms = (((x - y) / x)**2).mean()** 0.5
 cv = sklearn.cross_validation.Bootstrap(len(x), train_size=len(x) - 1, n_iter=100)
 relative_rms_grid = np.array([(((x[ind] - y[ind]) / x[ind])**2).mean()** 0.5 for ind, _ in cv])
 relative_rms_err = relative_rms_grid.std()
-plt.title("Density [g / cm^3]")
+plt.title(r"Density [g cm$^{-3}$]")
 plt.savefig("./manuscript/figures/densities_thermoml.pdf", bbox_inches="tight")
-plt.savefig("./manuscript/figures/densities_thermoml.png", bbox_inches="tight")
+plt.savefig("./manuscript/figures/densities_thermoml.tif", bbox_inches="tight")
 
 
 plt.figure(figsize=FIGURE_SIZE, dpi=DPI)
@@ -82,10 +82,10 @@ relative_rms = (((x - y) / x)**2).mean()** 0.5
 cv = sklearn.cross_validation.Bootstrap(len(x), train_size=len(x) - 1, n_iter=100)
 relative_rms_grid = np.array([(((x[ind] - y[ind]) / x[ind])**2).mean()** 0.5 for ind, _ in cv])
 relative_rms_err = relative_rms_grid.std()
-plt.title("Density [g / cm^3]")
+plt.title(r"Density [g cm$^{-3}$]")
 
 plt.savefig("./manuscript/figures/densities_differences_thermoml.pdf", bbox_inches="tight")
-plt.savefig("./manuscript/figures/densities_differences_thermoml.png", bbox_inches="tight")
+plt.savefig("./manuscript/figures/densities_differences_thermoml.tif", bbox_inches="tight")
 
 
 
@@ -138,4 +138,4 @@ plt.legend(loc=0)
 plt.gca().set_aspect('equal', adjustable='box')
 plt.draw()
 plt.savefig("./manuscript/figures/dielectrics_thermoml.pdf", bbox_inches="tight")
-plt.savefig("./manuscript/figures/dielectrics_thermoml.png", bbox_inches="tight")
+plt.savefig("./manuscript/figures/dielectrics_thermoml.tif", bbox_inches="tight")
