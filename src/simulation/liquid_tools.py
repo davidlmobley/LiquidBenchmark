@@ -12,6 +12,9 @@ import openmoltools
 
 from pymbar import timeseries as ts
 import pandas as pd
+from smarty import *
+from openeye.oechem import *
+import parmed
 
 def make_path(filename):
     try:
@@ -94,8 +97,8 @@ class AmberMixtureSystem(object):
             if not (os.path.exists(mol2_filename) and os.path.exists(frcmod_filename)):
                 openmoltools.openeye.smiles_to_antechamber(smiles_string, mol2_filename, frcmod_filename)
 
-    def build_mixture_prmtop(gaff_mol2_filenames, box_filename, prmtop_filename, inpcrd_filename, ffxml):
-       """Analog of openmoltools.amber.build_mixture_prmtop which uses SMIRNOFF forcefield (from github.com/open-forcefield-group/smarty) to parameterize small molecules, rather than GAFF.
+    def build_mixture_prmtop(self, gaff_mol2_filenames, box_filename, prmtop_filename, inpcrd_filename, ffxml):
+        """Analog of openmoltools.amber.build_mixture_prmtop which uses SMIRNOFF forcefield (from github.com/open-forcefield-group/smarty) to parameterize small molecules, rather than GAFF.
 
     Parameters
     ----------
@@ -126,13 +129,10 @@ class AmberMixtureSystem(object):
 """
 
         # Read in molecules
-        from smarty import *
-        from openeye.oechem import *
-        import parmed
         oemols = []
         for mol2file in gaff_mol2_filenames:
             mol = oechem.OEGraphMol()
-            ifs = oechem.oemolistream(mol_filename)
+            ifs = oechem.oemolistream(mol2file)
             flavor = oechem.OEIFlavor_Generic_Default | oechem.OEIFlavor_MOL2_Default | oechem.OEIFlavor_MOL2_Forcefield
             ifs.SetFlavor( oechem.OEFormat_MOL2, flavor)
             oechem.OEReadMolecule(ifs, mol )
@@ -147,10 +147,10 @@ class AmberMixtureSystem(object):
         ff = ForceField(ffxml)
 
         # Construct system; charging not needed as mol2 files already have charges here
-        system = ff.createSystem( pdb.topology, oemols )
+        system = ff.createSystem( pdb.topology, oemols, nonbondedMethod = PME, nonbondedCutoff = CUTOFF )
 
         # Dump to AMBER format
-        structure = parmed.openmm.topsystem.load_topology( pdbfile.topology, system, pdbfile.positions)
+        structure = parmed.openmm.topsystem.load_topology( pdb.topology, system, pdb.positions)
         structure.save(prmtop_filename, overwrite=True)
         structure.save(inpcrd_filename, format='rst7', overwrite=True)
 
@@ -164,7 +164,7 @@ class AmberMixtureSystem(object):
             packed_trj.save(self.box_pdb_filename)
 
         if not (os.path.exists(self.inpcrd_filename) and os.path.exists(self.prmtop_filename)):
-            status = build_mixture_prmtop(self.gaff_mol2_filenames, self.box_pdb_filename, self.prmtop_filename, self.inpcrd_filename, self.ffxml)
+            status = self.build_mixture_prmtop(self.gaff_mol2_filenames, self.box_pdb_filename, self.prmtop_filename, self.inpcrd_filename, self.ffxml)
 
 
     def equilibrate(self):
