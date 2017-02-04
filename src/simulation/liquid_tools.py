@@ -34,12 +34,12 @@ class AmberMixtureSystem(object):
         Temperature to run simulation.
     """
 
-    # TO DO: MODIFY CONSTRUCTOR AND DATA TO HAVE FFXML FILE FOR SMIRNOFF
-    def __init__(self, cas_strings, n_monomers, temperature):
+    def __init__(self, cas_strings, n_monomers, temperature, ffxml):
 
         self.cas_strings = cas_strings
         self.n_monomers = n_monomers
         self.temperature = temperature
+        self.ffxml = ffxml
 
         identifier = list(itertools.chain(cas_strings, [str(n) for n in n_monomers], [str(temperature).split(' ')[0]]))
         self.identifier = '_'.join(identifier)
@@ -164,7 +164,7 @@ class AmberMixtureSystem(object):
             packed_trj.save(self.box_pdb_filename)
 
         if not (os.path.exists(self.inpcrd_filename) and os.path.exists(self.prmtop_filename)):
-            tleap_cmd = build_mixture_prmtop(self.gaff_mol2_filenames, self.box_pdb_filename, self.prmtop_filename, self.inpcrd_filename, self.ffxml)
+            status = build_mixture_prmtop(self.gaff_mol2_filenames, self.box_pdb_filename, self.prmtop_filename, self.inpcrd_filename, self.ffxml)
 
 
     def equilibrate(self):
