@@ -1,3 +1,4 @@
+import sys
 import parmed
 from openmoltools import cirpy
 import mdtraj as md
@@ -6,6 +7,12 @@ import os
 import pandas as pd
 import glob
 import dipole_errorbars
+
+#Old
+#from density_simulation_parameters import DATA_PATH
+# density_simulation_parameters is not in this directory, so we have to modify the script to find where it is
+absdir = os.getcwd()
+sys.path.insert( 0, os.path.join(absdir, 'simulation'))
 from density_simulation_parameters import DATA_PATH
 
 num_bootstrap = 100
