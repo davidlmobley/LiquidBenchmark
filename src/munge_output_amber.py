@@ -1,4 +1,4 @@
-import chemistry
+import parmed
 from openmoltools import cirpy
 import mdtraj as md
 import pymbar
@@ -30,7 +30,7 @@ for prmtop_filename in prmtop_filenames:
     [t0, g, Neff] = pymbar.timeseries.detectEquilibration(rho)
     mu = rho[t0:].mean()
     sigma = rho[t0:].std() * Neff ** -0.5
-    prmtop = chemistry.load_file(prmtop_filename)
+    prmtop = parmed.load_file(prmtop_filename)
     charges = prmtop.to_dataframe().charge.values
     temperature = float(temperature)
     traj = traj[t0 * len(traj) / len(rho):]
