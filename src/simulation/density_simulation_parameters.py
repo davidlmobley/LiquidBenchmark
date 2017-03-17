@@ -6,7 +6,7 @@ import os
 
 #DATA_PATH = os.path.join(os.environ["HOME"], "liquid_benchmark_3_14/")
 #DATA_PATH = os.path.join(os.environ["HOME"], "liquid_benchmark_4_8/")
-DATA_PATH = os.path.join(os.environ["HOME"], "liquid_benchmark_4_24/")
+DATA_PATH = os.path.join('/work/cluster/dmobley/liquid_benchmark', "02_06_2017/")
 
 MOLECULES_PER_BOX = 1000
 

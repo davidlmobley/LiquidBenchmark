@@ -17,8 +17,14 @@ from density_simulation_parameters import DATA_PATH
 
 num_bootstrap = 100
 fixed_block_length = 20  # 200 ps blocks for dielectric error bar block averaging.
+# Take start molecule number to process and end molecule number to process from sys.argv
+startnr = int(sys.argv[1])
+endnr = int(sys.argv[2])
+print(startnr, endnr)
 
 prmtop_filenames = glob.glob(DATA_PATH + "/tleap/*.prmtop")
+prmtop_filenames = prmtop_filenames[startnr:endnr]
+print(prmtop_filenames)
 filename_munger = lambda filename: os.path.splitext(os.path.split(filename)[1])[0].split("_")
 data = []
 for prmtop_filename in prmtop_filenames:
@@ -51,4 +57,4 @@ for prmtop_filename in prmtop_filenames:
 
 data = pd.DataFrame(data)
 
-data.to_csv("./tables/predictions.csv")
+data.to_csv("./tables/predictions_%d_%s.csv" % (startnr, endnr))

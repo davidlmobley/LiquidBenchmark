@@ -10,5 +10,5 @@ rank = int(sys.argv[1])
 for k0, k1, components, smiles, cas, temperature, pressure, density, perm in data.itertuples():
     if k0 == rank:
         print(k0, k1, components, smiles, cas, temperature, pressure, density)
-        builder = AmberMixtureSystem([cas], [MOLECULES_PER_BOX], temperature * u.kelvin)
+        builder = AmberMixtureSystem([cas], [MOLECULES_PER_BOX], temperature * u.kelvin, 'smirff99Frosst.ffxml')
         builder.run()

@@ -7,5 +7,5 @@ data = pd.read_csv("../../tables/data_dielectric.csv")
 
 for k0, k1, components, smiles, cas, temperature, pressure, density, perm in data.itertuples():
     print(k0, k1, components, smiles, cas, temperature, pressure, density)
-    builder = AmberMixtureSystem([cas], [MOLECULES_PER_BOX], temperature * u.kelvin)
+    builder = AmberMixtureSystem([cas], [MOLECULES_PER_BOX], temperature * u.kelvin, 'smirff99Frosst.ffxml')
     builder.run(just_build=True)
