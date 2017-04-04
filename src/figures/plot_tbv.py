@@ -1,4 +1,6 @@
 import numpy as np
+import matplotlib
+matplotlib.use('Agg')
 import sklearn.metrics, sklearn.cross_validation
 import statsmodels.formula.api as sm
 import simtk.unit as u
@@ -10,11 +12,11 @@ import pandas as pd
 FIGURE_SIZE = (6.5, 6.5)
 DPI = 1600
 
-expt = pd.read_csv("./tables/data_with_metadata.csv")
+expt = pd.read_csv("../tables/data_with_metadata.csv")
 expt["temperature"] = expt["Temperature, K"]
 
 
-pred = pd.read_csv("./tables/predictions.csv")
+pred = pd.read_csv("../tables/partial_predictions/predictions.csv")
 pred["polcorr"] = pd.Series(dict((cas, polarizability.dielectric_correction_from_formula(formula, density * u.grams / u.milliliter)) for cas, (formula, density) in pred[["formula", "density"]].iterrows()))
 pred["corrected_dielectric"] = pred["polcorr"] + pred["dielectric"]
 
@@ -50,13 +52,13 @@ plt.gca().set_aspect('equal', adjustable='box')
 plt.draw()
 
 x, y = pred["density"], pred["expt_density"]
-relative_rms = (((x - y) / x)**2).mean()** 0.5
-cv = sklearn.cross_validation.Bootstrap(len(x), train_size=len(x) - 1, n_iter=100)
-relative_rms_grid = np.array([(((x[ind] - y[ind]) / x[ind])**2).mean()** 0.5 for ind, _ in cv])
-relative_rms_err = relative_rms_grid.std()
+#relative_rms = (((x - y) / x)**2).mean()** 0.5
+#cv = sklearn.cross_validation.Bootstrap(len(x), train_size=len(x) - 1, n_iter=100)
+#relative_rms_grid = np.array([(((x[ind] - y[ind]) / x[ind])**2).mean()** 0.5 for ind, _ in cv])
+#relative_rms_err = relative_rms_grid.std()
 plt.title(r"Density [g cm$^{-3}$]")
-plt.savefig("./manuscript/figures/densities_thermoml.pdf", bbox_inches="tight")
-plt.savefig("./manuscript/figures/densities_thermoml.tif", bbox_inches="tight")
+plt.savefig("densities_thermoml.pdf", bbox_inches="tight")
+plt.savefig("densities_thermoml.tif", bbox_inches="tight")
 
 
 plt.figure(figsize=FIGURE_SIZE, dpi=DPI)
@@ -78,14 +80,14 @@ plt.gca().set_aspect('auto', adjustable='box')
 plt.draw()
 
 x, y = pred["density"], pred["expt_density"]
-relative_rms = (((x - y) / x)**2).mean()** 0.5
-cv = sklearn.cross_validation.Bootstrap(len(x), train_size=len(x) - 1, n_iter=100)
-relative_rms_grid = np.array([(((x[ind] - y[ind]) / x[ind])**2).mean()** 0.5 for ind, _ in cv])
-relative_rms_err = relative_rms_grid.std()
+#relative_rms = (((x - y) / x)**2).mean()** 0.5
+#cv = sklearn.cross_validation.Bootstrap(len(x), train_size=len(x) - 1, n_iter=100)
+#relative_rms_grid = np.array([(((x[ind] - y[ind]) / x[ind])**2).mean()** 0.5 for ind, _ in cv])
+#relative_rms_err = relative_rms_grid.std()
 plt.title(r"Density [g cm$^{-3}$]")
 
-plt.savefig("./manuscript/figures/densities_differences_thermoml.pdf", bbox_inches="tight")
-plt.savefig("./manuscript/figures/densities_differences_thermoml.tif", bbox_inches="tight")
+plt.savefig("densities_differences_thermoml.pdf", bbox_inches="tight")
+plt.savefig("densities_differences_thermoml.tif", bbox_inches="tight")
 
 
 
@@ -121,7 +123,7 @@ plt.ylim((0.0, 1))
 plt.legend(loc=0)
 plt.gca().set_aspect('equal', adjustable='box')
 plt.draw()
-plt.savefig("./manuscript/figures/dielectrics_thermoml_nocorr.pdf", bbox_inches="tight")
+plt.savefig("dielectrics_thermoml_nocorr.pdf", bbox_inches="tight")
 
 
 x, y = pred["corrected_dielectric"], pred["expt_dielectric"]
@@ -137,5 +139,5 @@ plt.ylim((0.0, 1.02))
 plt.legend(loc=0)
 plt.gca().set_aspect('equal', adjustable='box')
 plt.draw()
-plt.savefig("./manuscript/figures/dielectrics_thermoml.pdf", bbox_inches="tight")
-plt.savefig("./manuscript/figures/dielectrics_thermoml.tif", bbox_inches="tight")
+plt.savefig("dielectrics_thermoml.pdf", bbox_inches="tight")
+plt.savefig("dielectrics_thermoml.tif", bbox_inches="tight")
