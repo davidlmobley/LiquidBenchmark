@@ -46,7 +46,7 @@ for (formula, grp) in pred.groupby("formula"):
 plt.plot([.600, 1.400], [.600, 1.400], 'k', linewidth=1)
 plt.xlim((.600, 1.400))
 plt.ylim((.600, 1.400))
-plt.xlabel("Predicted (GAFF)")
+plt.xlabel("Predicted (SMIRNOFF)")
 plt.ylabel("Experiment (ThermoML)")
 plt.gca().set_aspect('equal', adjustable='box')
 plt.draw()
@@ -96,7 +96,7 @@ xerr = pred["dielectric_sigma"].replace(np.nan, 0.0)
 
 plt.figure(figsize=FIGURE_SIZE, dpi=DPI)
 
-plt.xlabel("Predicted (GAFF)")
+plt.xlabel("Predicted (SMIRNOFF)")
 plt.ylabel("Experiment (ThermoML)")
 plt.title("Inverse Static Dielectric Constant")
 
@@ -116,7 +116,7 @@ ols_results = ols_model.fit()
 r2 = ols_results.rsquared
 #plt.errorbar(x, y, xerr=xerr, yerr=yerr, fmt='.', label="GAFF (R^2 = %.3f)" % r2)
 #plt.errorbar(x, y, xerr=xerr, yerr=yerr, fmt='.', label="GAFF")
-plt.errorbar(x ** -1, y ** -1, xerr=xerr * x ** -2, yerr=yerr * y ** -2, fmt='.', label="GAFF")  # Transform xerr and yerr for 1 / epsilon plot
+plt.errorbar(x ** -1, y ** -1, xerr=xerr * x ** -2, yerr=yerr * y ** -2, fmt='.', label="SMIRNOFF")  # Transform xerr and yerr for 1 / epsilon plot
 
 plt.xlim((0.0, 1))
 plt.ylim((0.0, 1))
