@@ -1,17 +1,11 @@
 #!/bin/bash
 #
+# Author: Gaetano Calabro, UCI gacabro@uci.edu
 # Job name:
 #----------------
-#SBATCH -J "dens_array"
+#SBATCH -J "munge3"
 #----------------
 
-# Array info
-#SBATCH --array=123-247
-#    %5
-
-#----------------
-#SBATCH -p mf_titanx
-#----------------
 
 #----------------
 #SBATCH -o out.txt
@@ -25,14 +19,12 @@
 #
 #--------------
 #SBATCH --nodes=1
-# #SBATCH --cpus-per-task=8
-#SBATCH --mem-per-cpu=2gb
-#SBATCH --time=72:00:00
+#SBATCH --tasks-per-node=1
+#SBATCH --cpus-per-task=1
+#SBATCH --mem-per-cpu=8gb
+#SBATCH --time=12:00:00
 #SBATCH --distribution=block:cyclic
-#SBATCH --partition=mf_titanx
-#SBATCH --gres=gpu:titanxa:1
-# If you want to specify a spectific gpu partiion use #SBATCH --gres=gpu:titanxb:1
-# or #SBATCH --gres=gpu:titanxa:1
+#SBATCH --partition=mf_m-c1.9
 
 #--------------
 
@@ -58,11 +50,12 @@ cd $SLURM_SUBMIT_DIR
 
 echo 'Working Directory:'
 pwd
-echo 'Array ID number:' $SLURM_ARRAY_TASK_ID
+
  
 date
+# or #SBATCH --gres=gpu:titanxa:1
 #insert submitted commands here
-python simulate_thermoml.py $SLURM_ARRAY_TASK_ID
+python munge_output_amber.py
 
 ###
 date

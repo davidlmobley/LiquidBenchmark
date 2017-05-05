@@ -3,9 +3,11 @@
 import os
 import glob
 from density_simulation_parameters import MOLECULES_PER_BOX
+from density_simulation_parameters import DATA_PATH
 
 #targetdir = '/work/cluster/dmobley/liquid_benchmark/02_06_2017'
-targetdir = '/beegfs/DATA/mobley/dmobley/liquid_benchmark/02_06_2017'
+#targetdir = '/beegfs/DATA/mobley/dmobley/liquid_benchmark/02_06_2017'
+targetdir = DATA_PATH
 
 # Get list of those we are trying to run
 import pandas as pd

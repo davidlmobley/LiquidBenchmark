@@ -2,12 +2,11 @@
 #
 # Job name:
 #----------------
-#SBATCH -J "dens_array"
+#SBATCH -J "dens_munge_array"
 #----------------
 
-# Array info
-#SBATCH --array=123-247
-#    %5
+# Array info; any number following the percent symbol is max jobs running at once
+#SBATCH --array=11-12%13  
 
 #----------------
 #SBATCH -p mf_titanx
@@ -26,7 +25,7 @@
 #--------------
 #SBATCH --nodes=1
 # #SBATCH --cpus-per-task=8
-#SBATCH --mem-per-cpu=2gb
+#SBATCH --mem-per-cpu=8gb
 #SBATCH --time=72:00:00
 #SBATCH --distribution=block:cyclic
 #SBATCH --partition=mf_titanx
@@ -59,10 +58,16 @@ cd $SLURM_SUBMIT_DIR
 echo 'Working Directory:'
 pwd
 echo 'Array ID number:' $SLURM_ARRAY_TASK_ID
- 
+
+STARTNR=$(($SLURM_ARRAY_TASK_ID*10))
+ENDNR=$(($STARTNR+9))
+if [ $ENDNR -gt 247]; then ENDNR=247; fi
+echo $STARTNR
+echo $ENDNR
+
 date
 #insert submitted commands here
-python simulate_thermoml.py $SLURM_ARRAY_TASK_ID
+python munge_output_amber_subset.py $STARTNR $ENDNR
 
 ###
 date
