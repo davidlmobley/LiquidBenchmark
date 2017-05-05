@@ -19,6 +19,7 @@ num_bootstrap = 100
 fixed_block_length = 20  # 200 ps blocks for dielectric error bar block averaging.
 
 prmtop_filenames = glob.glob(DATA_PATH + "/tleap/*.prmtop")
+print(prmtop_filenames)
 filename_munger = lambda filename: os.path.splitext(os.path.split(filename)[1])[0].split("_")
 data = []
 for prmtop_filename in prmtop_filenames:
