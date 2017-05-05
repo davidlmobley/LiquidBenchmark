@@ -25,7 +25,7 @@
 #--------------
 #SBATCH --nodes=1
 # #SBATCH --cpus-per-task=8
-#SBATCH --mem-per-cpu=2gb
+#SBATCH --mem-per-cpu=8gb
 #SBATCH --time=72:00:00
 #SBATCH --distribution=block:cyclic
 #SBATCH --partition=mf_titanx

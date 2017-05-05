@@ -1,20 +1,24 @@
 import statsmodels.formula.api as sm
+import matplotlib
+matplotlib.use('Agg')
 import simtk.unit as u
 import polarizability
 import seaborn as sns
 import matplotlib.pyplot as plt
 import pandas as pd
+import numpy as np
 
 sns.set_palette("bright")
 sns.set_style("white")
 sns.set(font_scale=1.2)
 sns.set(style="ticks")
 
-expt = pd.read_csv("./tables/data_with_metadata.csv")
+expt = pd.read_csv("../tables/data_with_metadata.csv")
 expt["temperature"] = expt["Temperature, K"]
 
 
-pred = pd.read_csv("./tables/predictions.csv")
+#pred = pd.read_csv("./tables/predictions.csv")
+pred = pd.read_csv("../tables/predictions.csv")
 pred["polcorr"] = pd.Series(dict((cas, polarizability.dielectric_correction_from_formula(formula, density * u.grams / u.milliliter)) for cas, (formula, density) in pred[["formula", "density"]].iterrows()))
 pred["corrected_dielectric"] = pred["polcorr"] + pred["dielectric"]
 
@@ -51,11 +55,11 @@ for name_group, pred_i in pred.groupby("name_group"):
     g.map(plt.errorbar, "temperature", "density", "density_sigma", fmt='.', color='g', label="MD")
     g.set_ylabels("Density [g / cm^3]")
     g.set_xlabels("Temperature [K]")
-    legend(loc=4)
+    plt.legend(loc=4)
     g.set_titles(col_template="{col_name}")
     g.set_xticklabels(labels=np.arange(270, 340, 10))
     plt.draw()
-    plt.savefig("./manuscript/figures/densities_versus_temperature_part%d.pdf" % name_group, bbox_inches="tight")
+    plt.savefig("densities_versus_temperature_part%d.pdf" % name_group, bbox_inches="tight")
 
 
 # HACK TO PLOT DATA THAT LACKS ERRORBARS!
@@ -82,8 +86,8 @@ for name_group, pred_i in pred.groupby("name_group"):
     g.map(plt.errorbar, "temperature", "inv_corrected_dielectric", "inv_corrected_dielectric_sigma", fmt='.', color='r', label="Corr.")
     g.set_ylabels("Inverse Dielectric Constant")
     g.set_xlabels("Temperature [K]")
-    legend(loc=2)  # Upper Left
+    plt.legend(loc=2)  # Upper Left
     g.set_titles(col_template="{col_name}")
     g.set(ylim=(0., 1.05))
     plt.draw()
-    plt.savefig("./manuscript/figures/dielectric_versus_temperature_part%d.pdf" % name_group, bbox_inches="tight")
+    plt.savefig("dielectric_versus_temperature_part%d.pdf" % name_group, bbox_inches="tight")

@@ -6,7 +6,8 @@
 #----------------
 
 # Array info
-#SBATCH --array=1-247%5
+#SBATCH --array=123-247
+#    %5
 
 #----------------
 #SBATCH -p mf_titanx

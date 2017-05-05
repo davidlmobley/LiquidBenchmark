@@ -23,7 +23,7 @@ endnr = int(sys.argv[2])
 print(startnr, endnr)
 
 prmtop_filenames = glob.glob(DATA_PATH + "/tleap/*.prmtop")
-prmtop_filenames = prmtop_filenames[startnr:endnr]
+prmtop_filenames = prmtop_filenames[startnr:endnr+1] #inclusive of end number
 print(prmtop_filenames)
 filename_munger = lambda filename: os.path.splitext(os.path.split(filename)[1])[0].split("_")
 data = []
